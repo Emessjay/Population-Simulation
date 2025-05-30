@@ -71,6 +71,11 @@ Generation* Generation::nextGen() {
     if (state == 'd') {
         *successor = *this;
         successor->randomize();
+        for (i = 0; i < xBuckets; i++) {
+            for (int j = 0; j < ((successor->locations)[i])->breeders.size(); j++) {
+                ((successor->locations)[i])->breeders.at(j) = new Breeder(((successor->locations)[i])->breeders.at(j), true);
+            }
+        }
     } else if (state == 'r') {
         for (i = 0; i < xBuckets; i++) {
             (successor->locations)[i] = ((this->locations)[i])->getNextGenBucket(successor);
